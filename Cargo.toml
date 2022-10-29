@@ -2,6 +2,7 @@
 name = "cli_notes"
 version = "0.1.0"
 edition = "2021"
+description = "Cli notes app"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -11,3 +12,4 @@ chrono = { version = "0.4.0", features = ["rkyv"] }
 rkyv = { version = "0.7", features = ["validation"] }
 bytecheck = "0.6.9"
 rand = "0.8.5"
+structopt = "0.3.26"

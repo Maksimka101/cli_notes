@@ -9,11 +9,12 @@ fn main() {
 
     if let Ok(repository) = NotesStorage::new(config) {
         let command_executor = CommandExecutor { repository };
-        if let Ok(command) = Command::parse() {
-            let _ = command_executor.execute(command);
-        } else {
-            println!("Failed to parse the command");
-        }
+        match Command::read_from_args() {
+            Ok(command) => {
+                let _ = command_executor.execute(command);
+            }
+            Err(err) => println!("{}", err),
+        };
     } else {
         println!("Failed to create notes storage");
     }

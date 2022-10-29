@@ -7,8 +7,7 @@ use rkyv::{ser::serializers::AllocSerializer, Archive, Deserialize, Fallible, Se
 #[archive_attr(derive(CheckBytes))]
 pub struct Note {
     pub id: i32,
-    pub created_at: String,
-    pub updated_at: String,
+    pub edited_at: String,
     pub title: String,
     pub message: String,
 }
@@ -36,7 +35,7 @@ impl Display for Note {
         write!(
             f,
             "Id: {}\nCreated at: {}\nTitle: {}\nMessage: {}",
-            self.id, self.created_at, self.title, self.message,
+            self.id, self.edited_at, self.title, self.message,
         )
     }
 }

@@ -16,24 +16,10 @@ impl CommandExecutor<'_> {
     pub fn execute(&self, command: Command) -> Result<(), CommandExecutorError> {
         return match command {
             Command::ShowAll => self.show_all(),
-            Command::Help { due_to_failure } => Self::show_help(due_to_failure),
             Command::Create { created_note } => self.create(created_note),
             Command::Read { note_id } => self.read(note_id),
             Command::Remove { note_id } => self.remove(note_id),
         };
-    }
-
-    fn show_help(show_error_message: bool) -> Result<(), CommandExecutorError> {
-        if show_error_message {
-            println!("Failed to parse the command");
-        }
-        println!("Usage: cli_notes [command]");
-        println!("  -h --help           show the help message (this message)");
-        println!("  list                list all notes");
-        println!("  create              create a note");
-        println!("  read [note_id]      show note with [note_id]");
-        println!("  remove [note_id]    remove note with [note_id]");
-        Ok(())
     }
 
     fn show_all(&self) -> Result<(), CommandExecutorError> {
@@ -78,8 +64,7 @@ impl CommandExecutor<'_> {
         let mut rng = rand::thread_rng();
         let note = Note {
             id: rng.gen(),
-            created_at: Local::now().to_string(),
-            updated_at: Local::now().to_string(),
+            edited_at: Local::now().to_string(),
             title: created_note.title,
             message: created_note.message,
         };
