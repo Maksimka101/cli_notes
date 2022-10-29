@@ -14,20 +14,16 @@ impl NotesStorage<'_> {
     }
 
     pub fn save(&self, note: &Note) -> Result<(), Error> {
-        let bytes = note.to_bytes();
-        if let Ok(bytes) = bytes {
-            if let Err(_) = self.store.set(&note.id.into(), &Raw::from(bytes)) {
-                return Err(Error {});
+        if let Ok(bytes) = note.to_bytes() {
+            if let Ok(_) = self.store.set(&note.id.into(), &Raw::from(bytes)) {
+                return Ok(());
             }
-            return Ok(());
-        } else {
-            return Err(Error {});
         }
+        return Err(Error {});
     }
 
     pub fn read(&self, id: &i32) -> Result<Note, Error> {
-        let note_bytes = self.store.get(&id.to_owned().into());
-        if let Ok(Some(bytes)) = note_bytes {
+        if let Ok(Some(bytes)) = self.store.get(&id.to_owned().into()) {
             if let Some(note) = Note::from_bytes(&bytes.to_vec()) {
                 return Ok(note);
             }

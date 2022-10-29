@@ -6,7 +6,7 @@ use rkyv::{ser::serializers::AllocSerializer, Archive, Deserialize, Fallible, Se
 #[derive(Debug, Archive, Serialize, Deserialize)]
 #[archive_attr(derive(CheckBytes))]
 pub struct Note {
-    pub id: i32,
+    pub id: u32,
     pub edited_at: String,
     pub title: String,
     pub message: String,
